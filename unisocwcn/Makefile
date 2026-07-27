@@ -321,8 +321,8 @@ ccflags-y += -DCONFIG_WCN_LOOPCHECK
 #ccflags-y += -DCONFIG_CPLOG_DEBUG
 #endif
 #ccflags-y += -DCONFIG_MEM_PD
-ccflags-y += -DCONFIG_SDIO_TX_ADMA_MODE
-ccflags-y += -DCONFIG_SDIO_RX_ADMA_MODE
+#ccflags-y += -DCONFIG_SDIO_TX_ADMA_MODE
+#ccflags-y += -DCONFIG_SDIO_RX_ADMA_MODE
 ccflags-y += -DCONFIG_SDIO_INBAND_INT
 #ccflags-y += -DCONFIG_SDIO_INBAND_POLLING
 #ccflags-y += -DCONFIG_SDIO_BLKSIZE_512
