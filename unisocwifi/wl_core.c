@@ -122,8 +122,8 @@ struct debuginfo_s {
 	{enable_tcp_ack_delay, "tcpack_delay_en="},
 	{adjust_tcp_ack_delay, "tcpack_delay_cnt="},
 	{adjust_tcp_ack_delay_win, "tcpack_delay_win="},
-	{adjust_txnum_level, "txnum_level="},
-	{adjust_rxnum_level, "rxnum_level="},
+	//{adjust_txnum_level, "txnum_level="},
+	//{adjust_rxnum_level, "rxnum_level="},
 	{adjust_tdls_threshold, "tdls_threshold="},
 };
 
@@ -531,9 +531,9 @@ static struct sprdwl_if_ops sprdwl_core_ops = {
 	.ini_download_status = sprdwl_ini_download_status
 };
 
-static struct notifier_block boost_notifier = {
-	.notifier_call = sprdwl_notifier_boost,
-};
+//static struct notifier_block boost_notifier = {
+//	.notifier_call = sprdwl_notifier_boost,
+//};
 
 #ifdef CP2_RESET_SUPPORT
 extern struct sprdwl_priv *g_sprdwl_priv;
@@ -690,7 +690,7 @@ static int sprdwl_probe(struct platform_device *pdev)
 #endif
 
 	sprdwl_debugfs_init(intf);
-	cpufreq_register_notifier(&boost_notifier, CPUFREQ_POLICY_NOTIFIER);
+	//cpufreq_register_notifier(&boost_notifier, CPUFREQ_POLICY_NOTIFIER);
 
 #ifdef CP2_RESET_SUPPORT
 	marlin_reset_callback_register(MARLIN_WIFI, &wifi_reset_notifier);
@@ -725,7 +725,7 @@ static int sprdwl_remove(struct platform_device *pdev)
 	marlin_reset_callback_unregister(MARLIN_WIFI, &wifi_reset_notifier);
 #endif
 
-	cpufreq_unregister_notifier(&boost_notifier, CPUFREQ_POLICY_NOTIFIER);
+	//cpufreq_unregister_notifier(&boost_notifier, CPUFREQ_POLICY_NOTIFIER);
 	sprdwl_debugfs_deinit();
 	sprdwl_core_deinit(priv);
 	sprdwl_tx_deinit(intf);

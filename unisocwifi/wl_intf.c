@@ -24,9 +24,9 @@
 #include "rx_msg.h"
 #include "work.h"
 #include "tcp_ack.h"
-#ifndef CPUFREQ_ADJUST
-#define CPUFREQ_ADJUST			(0)
-#endif
+//#ifndef CPUFREQ_ADJUST
+//#define CPUFREQ_ADJUST			(0)
+//#endif
 
 #define INIT_INTF(num, type, out, interval, bsize, psize, max,\
 			 threshold, time, pop, push, complete, suspend) \
@@ -355,7 +355,7 @@ int sprdwl_add_topop_list(int chn, struct mbuf_t *head,
 	return 0;
 }
 
-void sprdwl_count_tx_tp(struct sprdwl_tx_msg *tx_msg, int num)
+/* void sprdwl_count_tx_tp(struct sprdwl_tx_msg *tx_msg, int num)
 {
 	long long timeus = 0;
 	struct sprdwl_intf *intf = get_intf();
@@ -379,7 +379,7 @@ void sprdwl_count_tx_tp(struct sprdwl_tx_msg *tx_msg, int num)
 	} else if (timeus >= USEC_PER_SEC) {
 		tx_msg->tx_data_num = 0;
 	}
-}
+} */
 
 unsigned long tx_packets;
 int sprdwl_intf_tx_list(struct sprdwl_intf *dev,
@@ -420,7 +420,7 @@ int sprdwl_intf_tx_list(struct sprdwl_intf *dev,
 		WARN_ON(1);
 	}
 	tx_msg = (struct sprdwl_tx_msg *)dev->sprdwl_tx;
-	sprdwl_count_tx_tp(tx_msg, tx_count);
+	//sprdwl_count_tx_tp(tx_msg, tx_count);
 	if (dev->priv->hw_type == SPRDWL_HW_PCIE) {
 		if (tx_count <= PCIE_TX_NUM) {
 			pcie_count = 1;
@@ -1026,7 +1026,7 @@ inline void sprdwl_free_rx_data(struct sprdwl_intf *intf,
 		sprdwcn_bus_push_list(chn, (struct mbuf_t *)head, (struct mbuf_t *)tail, num);
 }
 
-void sprdwl_count_rx_tp(struct sprdwl_rx_if *rx_if, int num)
+/* void sprdwl_count_rx_tp(struct sprdwl_rx_if *rx_if, int num)
 {
 	long long timeus = 0;
 	struct sprdwl_intf *intf = get_intf();
@@ -1050,7 +1050,7 @@ void sprdwl_count_rx_tp(struct sprdwl_rx_if *rx_if, int num)
 	} else if (timeus >= USEC_PER_SEC) {
 		rx_if->rx_data_num = 0;
 	}
-}
+} */
 static int intf_rx_handle(int chn, struct mbuf_t *head,
 				   struct mbuf_t *tail, int num)
 {
@@ -1060,9 +1060,9 @@ static int intf_rx_handle(int chn, struct mbuf_t *head,
 
 	wl_debug("%s: channel:%d head:%p tail:%p num:%d\n",
 		__func__, chn, head, tail, num);
-	if ((intf->priv->hw_type == SPRDWL_HW_SDIO && chn == SDIO_RX_DATA_PORT) ||
-		(intf->priv->hw_type == SPRDWL_HW_USB && chn == USB_RX_DATA_PORT))
-		sprdwl_count_rx_tp(rx_if, num);
+	//if ((intf->priv->hw_type == SPRDWL_HW_SDIO && chn == SDIO_RX_DATA_PORT) ||
+	//	(intf->priv->hw_type == SPRDWL_HW_USB && chn == USB_RX_DATA_PORT))
+	//	sprdwl_count_rx_tp(rx_if, num);
 
 	/*To process credit earlier*/
 	if (intf->priv->hw_type == SPRDWL_HW_SDIO ||
@@ -1729,7 +1729,7 @@ void sprdwl_tx_delba(struct sprdwl_intf *intf,
 	sprdwl_put_vif(vif);
 }
 
-int sprdwl_notifier_boost(struct notifier_block *nb, unsigned long event, void *data)
+/* int sprdwl_notifier_boost(struct notifier_block *nb, unsigned long event, void *data)
 {
 	struct cpufreq_policy_data *policy = data;
 	unsigned long min_freq;
@@ -1816,7 +1816,7 @@ void adjust_rxnum_level(char *buf, unsigned char offset)
 	intf->rxnum_level = cnt;
 	wl_info("rxnum_level: %d\n", intf->rxnum_level);
 #undef MAX_LEN
-}
+} */
 
 int sprdwl_intf_init(struct sprdwl_priv *priv, struct sprdwl_intf *intf)
 {
@@ -1855,9 +1855,9 @@ int sprdwl_intf_init(struct sprdwl_priv *priv, struct sprdwl_intf *intf)
 		intf->priv = priv;
 		intf->fw_awake = 1;
 		intf->fw_power_down = 0;
-		intf->txnum_level = BOOST_TXNUM_LEVEL;
-		intf->rxnum_level = BOOST_RXNUM_LEVEL;
-		intf->boost = 0;
+		//intf->txnum_level = BOOST_TXNUM_LEVEL;
+		//intf->rxnum_level = BOOST_RXNUM_LEVEL;
+		//intf->boost = 0;
 #ifdef UNISOC_WIFI_PS
 		init_completion(&intf->suspend_completed);
 #endif
