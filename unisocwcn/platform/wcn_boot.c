@@ -4059,8 +4059,13 @@ static int marlin_probe(struct platform_device *pdev)
 	sprdwcn_bus_preinit();
 #ifndef CONFIG_WCN_PCIE
 #ifdef CONFIG_WCN_SDIO
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(7, 1, 0)
+	if (marlin_dev->int_ap)
+		sdio_pub_int_init(desc_to_gpio(marlin_dev->int_ap));
+#else
 	if (marlin_dev->int_ap > 0)
 		sdio_pub_int_init(marlin_dev->int_ap);
+#endif
 #endif
 #ifdef CONFIG_MEM_PD
 	mem_pd_init();
